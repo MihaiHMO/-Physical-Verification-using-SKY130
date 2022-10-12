@@ -4,9 +4,13 @@
 ### Fundamentals of design rules
 
 Physical verification of masks generated from layout data vs foundry process rules specific for each foundry and process node.  
+
 The masks are used for defining the components (transistors , resistor, caps) build during fabrication steps which are deposited/exposed to light/etched on a substrate - silicon wafer. 
+
 The precision of the equipment, materials used, timings, cleanliness in the fabs will generate some constrains for the geometries used for masks. The defects (spot defects)  will not be eliminated completely but they will have a normal distribution and will generate a process yield. 
+
 The DRC scope is to maintain the same failure rate (ppm-parts per million) on all wafers so we can rely on the statistics given by the fab. DRC will keep the manufacturability of the wafer , if not fulfilled most probably the fab will refuse to produce the component.
+
 Skywater130 DRC: https://antmicro-skywater-pdk-docs.readthedocs.io/en/latest/rules.html
 
 ### Back-end Metal layer
@@ -55,8 +59,8 @@ Fill patterns are used to mitigate this . For analog design the patterns can inf
 
 ### Day3 Lab
 #### Width and spacing rules 
-Clone the exercise folder from '''git clone https://github.com/RTimothyEdwards/vsd_drc_lab.git''''
-![](day3/3-0.png)
+Clone the exercise folder from ```git clone https://github.com/RTimothyEdwards/vsd_drc_lab.git```
+![](Day3/3-0.png)
 Selecting menu DRC->DRC Report(?) erros can be seen in the comand window, erros will be repoted just for selection .
 Use 'b' key to see dimension:
 - microns: the size of the selected elemen (error indicated metal width 0x14 > 0.06 curent width)
@@ -64,21 +68,21 @@ Use 'b' key to see dimension:
 - internal: minimum manufaturing grid
 Grid features can be selected from menu Window. Set grid x.xx , Grid on, Snap-to-grid etc
 Exercise 1a- line width: we can use filling the area with the mouse or in comand line ('''box width 0.14um / paint m2''')
-![](day2/3-1.png)
+![](Day2/3-1.png)
 Exercise 1b - space width: solved by moving the area away with keypad arrows (4<-,6->,8 up, 2 down)
 Exercise 1c - 2x metal spacing: rsolved similar with 1b moving the small component
 Exercise 1d - notch error : usgae of menu Cell->Strech up action is used to widthen the notch or Shift +keypad arraows 
-Strech of element can be don selecting a portion of a plane , pressing a and using comand '''stret e 1.1.6um''' (e - est).
-![](day2/3-2.png)
+Strech of element can be don selecting a portion of a plane , pressing a and using comand ```stret e 1.1.6um``` (e - est).
+![](Day2/3-2.png)
 Exercise 2a via size - solved with strech 
-Exercise 2b multiple via - used in designs with multiple via contacts . '''feedback why''' comand can show the possible via conection . '''feeback clear''' will reset the view.
+Exercise 2b multiple via - used in designs with multiple via contacts . ```feedback why``` comand can show the possible via conection . ```feeback clear``` will reset the view.
 If the area is to small to feet a contact we will get a feedback error.
-'''cif see''' will show the layers used for via contact.
-![](day2/3-3.png)
+```cif see``` will show the layers used for via contact.
+![](Day2/3-3.png)
 Exercise 2c - via overlap. metal layer must be generated aroudn the via hole and dimension acording to the rules .
 Exercise 2d - autogenerate via: Using wiring tool hitting the space bar.  Wiring can be generated and presing Shit+ left mouse click and Shift +right mouse click we can jump to high/lower layers. 
-When going to upper layers and the width rule incrieses magis is generating wider traces. With '''cif see comand'''  
-![](day2/3-4.png)
+When going to upper layers and the width rule incrieses magis is generating wider traces. With ```cif see comand```  
+![](Day2/3-4.png)
 
 # Acknowledgements
 - [R. Timothy Edwards](https://github.com/RTimothyEdwards)
