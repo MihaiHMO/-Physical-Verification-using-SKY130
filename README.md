@@ -80,9 +80,9 @@ Run netgen in batch mode to compare 2 netlists. Common is to input the layout fi
 ```netgen -batch lvs "../mag/sky130_fd_sc_hd__and2_1.spice sky130_fd_sc_hd__and2_1" "/usr/share/pdk/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_fd_sc_hd.spice sky130_fd_sc_hd__and2_1"```
 
 You get a report if the files match or not ending :
-```Result: Netlists do not match.
+Result: Netlists do not match.
 Logging to file "comp.out" disabled
-LVS Done.```
+LVS Done.
 
 Setup for XOR example:
 
