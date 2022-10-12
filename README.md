@@ -29,7 +29,56 @@ Parameters of transistor :channel width , polysilicon with , endcap length , sou
 Poly to diffusion spacing , not to form a transistor by mistake. 
 Rules are defined also for implant areas for wells and taps, wells connected to different voltage nets,  deep n-well.
 High voltage rules for transistors that have high gate oxide and special well implants will increase almost all geometrical sizes of a transistor .
+Reistors, that can be created from polysilicon material or p-diffusion materiaal, have also specifc rules .
+Cpacitor are :
+- Varactors : that have a transitor structure -capacitance between gate and well - so the have similar rules
+- MOScap: capacitors formed by gate of FET with source and drain tied toghether , drc rules of MOSFET
+- Vertical parallel caps, Metal Oxide Metal, figer s of metal layers follow rules of metal layers
+- Metal insulator Metal (MiM) caps on metal layers with thin oxid between them , specific rules . Sky130 specifies dual layer caps
+Diodes - usually is a parasitic component , formed in magic with ID layers
+Fixed layout devices - usually has fixed design rules from the vendor in the standard cel. Bipolr Tranz, photodiodes , sram cells, etc.
 
+### Miscelaneos rules:
+- Off-grid - not very comon 
+- Angle limitation 
+- Seal ring : outer perimeter of a chip design - is treated like a fixed layout device but will vary when design will be resized 
+- Latchup rules :due to parasitic bipolar transistor formed betwen taps, wells and substrate - the rules will generate minum disctance bewteen tap connection and any diffusion zone. 
+- Antenna rules: long wires can capture charges and can generate high voltages if they are not connected to a return path or load. The high voltage will penetrate components with a certain brakedown voltage , usualy the transitor gate. Usually not missed by the designers this can apair during manufacturing .Thsi can be mitigated also with placement of diodes. 
+- Stres rules - related to material delamination by mechanical processes . Critical points are corners, edges usaaly containing the pad area.
+- Desnity rules: is necesary to mantain a flat surface on the layers and with higher desnity of metal conections this is achieved easier.
+Fill patterns are used to mitigate this . For analog design the patterns can influence the circuit parasitics. 
+
+### Reomanded , manufacturing and ERC rules
+- Recomened rules - will not reject the layout by foundry 
+- Manufacturing rules - causes rejection of layout by foundry 
+- Electrical rule checks - cober lectrical fail mecanisms like lectromigration , overvoltage conditions 
+
+### Day3 Lab
+#### Width and spacing rules 
+Clone the exercise folder from '''git clone https://github.com/RTimothyEdwards/vsd_drc_lab.git''''
+![](day3/3-0.png)
+Selecting menu DRC->DRC Report(?) erros can be seen in the comand window, erros will be repoted just for selection .
+Use 'b' key to see dimension:
+- microns: the size of the selected elemen (error indicated metal width 0x14 > 0.06 curent width)
+- lambda :
+- internal: minimum manufaturing grid
+Grid features can be selected from menu Window. Set grid x.xx , Grid on, Snap-to-grid etc
+Exercise 1a- line width: we can use filling the area with the mouse or in comand line ('''box width 0.14um / paint m2''')
+![](day2/3-1.png)
+Exercise 1b - space width: solved by moving the area away with keypad arrows (4<-,6->,8 up, 2 down)
+Exercise 1c - 2x metal spacing: rsolved similar with 1b moving the small component
+Exercise 1d - notch error : usgae of menu Cell->Strech up action is used to widthen the notch or Shift +keypad arraows 
+Strech of element can be don selecting a portion of a plane , pressing a and using comand '''stret e 1.1.6um''' (e - est).
+![](day2/3-2.png)
+Exercise 2a via size - solved with strech 
+Exercise 2b multiple via - used in designs with multiple via contacts . '''feedback why''' comand can show the possible via conection . '''feeback clear''' will reset the view.
+If the area is to small to feet a contact we will get a feedback error.
+'''cif see''' will show the layers used for via contact.
+![](day2/3-3.png)
+Exercise 2c - via overlap. metal layer must be generated aroudn the via hole and dimension acording to the rules .
+Exercise 2d - autogenerate via: Using wiring tool hitting the space bar.  Wiring can be generated and presing Shit+ left mouse click and Shift +right mouse click we can jump to high/lower layers. 
+When going to upper layers and the width rule incrieses magis is generating wider traces. With '''cif see comand'''  
+![](day2/3-4.png)
 
 # Acknowledgements
 - [R. Timothy Edwards](https://github.com/RTimothyEdwards)
