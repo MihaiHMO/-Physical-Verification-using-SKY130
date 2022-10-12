@@ -1,4 +1,41 @@
 # -Physical-Verification-using-SKY130
+## Lab2: GDS read, ports, 
+
+Create a work envirement copiing magic into a directory:
+‌‌mihaihmo@pv-workshop-05:~/lab2/mag$ cp /usr/share/pdk/sky130A/libs.tech/magic/sky130A.magicrc ./.magicrc
+
+![](Day2/2-0.png)
+
+Exploring styles : available styles , selected style → Vendor 
+
+Magics has a search databas with .mag extension ; GDS files do not have such a database so we need to point the file from the PDK,
+GDS is just reading the top level cels to insert in the ;ayout you ca use the cell manager.
+The selected 
+
+![](Day2/2-1.png)
+
+Changing style , 
+![](Day2/2-2.png)
+
+
+
+Port parameters : name, class, usage can be  used to identify the port parameters.
+This are not available or are different for different styles. This metadata if not contained in the gds file, is captured in oder files like lef file or spice.
+For spice data a script named readspice is used.
+
+![](Day2/2-3.png)
+![](Day2/2-4.png)
+
+
+Abstract views
+![](Day2/2-5.png)
+
+layout generated for “test” not cel name sky130…..
+
+![](Day2/2-6.png)
+
+Pointers to directories from PDK
+
 ## Day 3 Design Rule Checking 
 
 ### Fundamentals of design rules
