@@ -224,9 +224,34 @@ Triangles , although they are bad can be generate with a box and ```splitpaint "
 Overlap error can apear if for eaxple poly will be in a cell and difussion layers in other cell. Solution to paint poly over poly area and to delete a subcell. 
 Contacts are not prohibited to overlap but if they do must overlap exaclty .This is done autoticly by magic so in case a contact cell is defined to have a ciertain spacing for vias and in toper hierachy design intersect with other contact the vias can move and generate an error.
 
+
 Exercise 8 : Unimplemened rules
 There situations that the situation is so special that can be solved just with abstractiuon .
-Seal ring is such a case, and can be imported just as abstract layer becasue is not  a part of technology . FOrtunatly seal ring is introduced with Seal ring generator 
+Seal ring is such a case, and can be imported just as abstract layer becasue is not  a part of technology . Fortunatly seal ring is introduced with Seal ring generator 
+![](Day3/3-12.png) need to be reedone
+
+Exercise 9: 
+In this example the design neeeds N-tap conection and minimum distance distance from difusion area to taps must be met - this is the lecth-up rule. 
+We introduce manually a tap cel .
+![](Day3/3-13.png)
+
+Exercise 10: Eletrical rule check
+For electrical rule check the behaviour of the circuit must be know/ understood. For this we need an extractioin  
+![](Day3/3-14.png)
+Detailed info 
+![](Day3/3-15.png)
+There are 2 ways to solve the antenna issues :
+- conect the layer to a diode , from higluted metal down to fiddiusion. there are standard diode cels
+![](Day3/3-16.png)
+- chenahign metal layers the right way , for ex. the wire from metal3 moved to temetal 1
+
+Exercise 10:Density rules
+Density checks make sens on a full chip . Metal 1 covers the undedesnity (~5%) and metal 2 over desntisty (~85%) example. Use ```cif cover "layer".
+Density check is done via script ```check_density.py "file.gds". To solve this use ```generate_fill.py "file.gds"```. ANd generates a file name "gile_fill_pattern.gds" that can be merged with original .gds. The final check will run on this final comabined GDS file.
+![](Day3/3-17.png)
+
+## Day5 LVS Fundamental
+
 
 # Acknowledgements
 - [R. Timothy Edwards](https://github.com/RTimothyEdwards)
