@@ -1,8 +1,8 @@
 # -Physical-Verification-using-SKY130
 ## Table of content 
 + .[Day2 Lab](#day2-lab)
-+ .[Day3]
-+ .[Day5]
++ .[Day3](#Day3-Design-Rule-Checking)
++ .[Day5](#Day5)
 
 ## Day2 Lab
 ### Day 2 Lab GDS read, ports, 
@@ -97,7 +97,7 @@ Command flatten can be used to flatten a design
 ```- nolabels ``` option will be used to eliminate label and compare just geometries.
  ![](Day2/2-13.png)
 
-## Day 3 Design Rule Checking 
+## Day3 Design Rule Checking 
 
 ### Fundamentals of design rules
 
@@ -282,7 +282,8 @@ Netgen first generates topologies (not single devices) and will compare them. Fo
 Netgen removes 0 value compoenents like voltage sources or resistors.
 "Dummy" devices are ignored are ignored by netgen if all pins are shorten toghether.
 Simmetry devices can be destinguies just by diferent pin assigment or have diferent properties.  
-
+FOr interpreting the results netgen will have a Terminal (run-time) output (summary) but also some files specied in the comand but if not specified files with default name will be generated: ```comp.out ``` (full report) and ```lvs.log``` (summary) 
+Netgen has also a GUI called byt ```netgen gui``` comand.
 ### Labs
 
 # Acknowledgements
