@@ -255,7 +255,8 @@ Density checks make sense on a full chip . Metal 1 covers the underdensity (~5%)
 Density check is done via script ```check_density.py "file.gds". To solve this use ```generate_fill.py "file.gds"```. And generates a file name "gile_fill_pattern.gds" that can be merged with original .gds. The final check will run on this final combined GDS file.
 ![](Day3/3-17.png)
 
-## Day5 LVS Fundamental
+## Day5
+### LVS Fundamental
 Basically the LVS is a comparison of a schematic generated netlist vs a layout generated netlist . 
 Usually this will not math from the first time and the designers must figure out what is wrong
 ![](Day5/5-1.jpeg)
@@ -276,7 +277,13 @@ The schematic and testbench files should kept separate.
 ![](Day5/5-3.jpg)
 Netgen works creating a list of devices, a list of nets and generates hashes for each combination. Then creates a second set of hash numbers of the combination between hash number of device and net of the device. Then groups this hashes numbers in partitions. This repeats till the number of partitions is the same with the number of nets and devices. 
 Before netgen runs the core algorithm it tries to match the circuit top devices/subcells.
+Netgen will check pin cnumbers of a device not pin names. Sometimes there are sels that have pins that are not conected or netgen will create a proxy pin wich is a not conected generated pin.  
+Netgen first generates topologies (not single devices) and will compare them. For this there are porpesties that allows netgen to combine series/parallel , change , permut or ignor paramters.
+Netgen removes 0 value compoenents like voltage sources or resistors.
+"Dummy" devices are ignored are ignored by netgen if all pins are shorten toghether.
+Simmetry devices can be destinguies just by diferent pin assigment or have diferent properties.  
 
+### Labs
 
 # Acknowledgements
 - [R. Timothy Edwards](https://github.com/RTimothyEdwards)
