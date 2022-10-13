@@ -1,6 +1,6 @@
 # -Physical-Verification-using-SKY130
 ## Table of content 
-+ .[Day2]
++ .[Day2 Lab](#day2-lab)
 + .[Day3]
 + .[Day5]
 
