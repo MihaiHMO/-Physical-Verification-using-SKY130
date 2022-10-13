@@ -5,10 +5,10 @@
 + .[Day5]
 
 ## Day2 Lab
-### GDS read, ports, 
+### Day 2 Lab GDS read, ports, 
 
 Create a work envirement copiing magic into a directory:
-‌‌```mihaihmo@pv-workshop-05:~/lab2/mag$ cp /usr/share/pdk/sky130A/libs.tech/magic/sky130A.magicrc ./.magicrc```
+```mihaihmo@pv-workshop-05:~/lab2/mag$ cp /usr/share/pdk/sky130A/libs.tech/magic/sky130A.magicrc ./.magicrc```
 
 ![](Day2/2-0.png)
 
@@ -58,7 +58,7 @@ Pointers to directories from PDK
 Running the following script :```/usr/share/pdk/sky130A/libs.tech/magic/run_standard_drc.py /usr/share/pdk/sky130A/libs.ref/sky130_fd_sc_hd/mag/sky130_fd_sc_hd__and2_1.mag ```
 ![](Day2/2-7.png)
 
-Will generate a txt file ‌‌(sky130_fd_sc_hd__and2_1_drc.txt) and will setup the ```style (drc (full))```.
+Will generate a txt file (sky130_fd_sc_hd__and2_1_drc.txt) and will setup the ```style (drc (full))```.
 Opening the txt file we see that reports errors.
 ![](Day2/2-8.png)
 In magic we can explore the drc styles by loading the nand gate . We see that there are different styles and the one that is selected :
@@ -131,131 +131,151 @@ Parameters of transistor :channel width , polysilicon with , endcap length , sou
 Poly to diffusion spacing , not to form a transistor by mistake. 
 Rules are defined also for implant areas for wells and taps, wells connected to different voltage nets,  deep n-well.
 High voltage rules for transistors that have high gate oxide and special well implants will increase almost all geometrical sizes of a transistor .
-Reistors, that can be created from polysilicon material or p-diffusion materiaal, have also specifc rules .
-Cpacitor are :
+Resistors, that can be created from polysilicon material or p-diffusion material, have also specific rules .
+Capacitors are :
 - Varactors : that have a transitor structure -capacitance between gate and well - so the have similar rules
-- MOScap: capacitors formed by gate of FET with source and drain tied toghether , drc rules of MOSFET
-- Vertical parallel caps, Metal Oxide Metal, figer s of metal layers follow rules of metal layers
-- Metal insulator Metal (MiM) caps on metal layers with thin oxid between them , specific rules . Sky130 specifies dual layer caps
+- MOScap: capacitors formed by gate of FET with source and drain tied together , drc rules of MOSFET
+- Vertical parallel caps, Metal Oxide Metal, figure s of metal layers follow rules of metal layers
+- Metal insulator Metal (MiM) caps on metal layers with thin oxide between them , specific rules . Sky130 specifies dual layer caps
 Diodes - usually is a parasitic component , formed in magic with ID layers
-Fixed layout devices - usually has fixed design rules from the vendor in the standard cel. Bipolr Tranz, photodiodes , sram cells, etc.
+Fixed layout devices - usually has fixed design rules from the vendor in the standard cel. Bipolar Tranz, photodiodes , sram cells, etc.
 
-### Miscelaneos rules:
-- Off-grid - not very comon 
+### Miscellaneous rules:
+- Off-grid - not very common 
 - Angle limitation 
 - Seal ring : outer perimeter of a chip design - is treated like a fixed layout device but will vary when design will be resized 
-- Latchup rules :due to parasitic bipolar transistor formed betwen taps, wells and substrate - the rules will generate minum disctance bewteen tap connection and any diffusion zone. 
-- Antenna rules: long wires can capture charges and can generate high voltages if they are not connected to a return path or load. The high voltage will penetrate components with a certain brakedown voltage , usualy the transitor gate. Usually not missed by the designers this can apair during manufacturing .Thsi can be mitigated also with placement of diodes. 
-- Stres rules - related to material delamination by mechanical processes . Critical points are corners, edges usaaly containing the pad area.
-- Desnity rules: is necesary to mantain a flat surface on the layers and with higher desnity of metal conections this is achieved easier.
-Fill patterns are used to mitigate this . For analog design the patterns can influence the circuit parasitics. 
+- Latch-up rules :due to parasitic bipolar transistor formed between taps, wells and substrate - the rules will generate minim distance between tap connection and any diffusion zone. 
+- Antenna rules: long wires can capture charges and can generate high voltages if they are not connected to a return path or load. The high voltage will penetrate components with a certain breakdown voltage, usually the transistor gate. Usually not missed by the designers this can apir during manufacturing .This can be mitigated also with placement of diodes. 
+- Stres rules - related to material delamination by mechanical processes . Critical points are corners, edges usually containing the pad area.
+- Density rules: is necessary to maintain a flat surface on the layers and with higher density of metal connections this is achieved easier.
+Fill patterns are used to mitigate this . For analog design the patterns can influence the circuit parasitic. 
 
-### Reomanded , manufacturing and ERC rules
-- Recomened rules - will not reject the layout by foundry 
+### Recommended , manufacturing and ERC rules
+- Recommended rules - will not reject the layout by foundry 
 - Manufacturing rules - causes rejection of layout by foundry 
-- Electrical rule checks - cober lectrical fail mecanisms like lectromigration , overvoltage conditions 
+- Electrical rule checks - cover electrical fail mechanisms like electromigration , overvoltage conditions 
 
 ### Day3 Lab
 #### Width and spacing rules 
 Clone the exercise folder from ```git clone https://github.com/RTimothyEdwards/vsd_drc_lab.git```
 ![](Day3/3-0.png)
 
-Everetime the magic starts the default drc rule is "fast".
-Selecting menu DRC->DRC Report(?) erros can be seen in the comand window, erros will be repoted just for selection .
+Everytime the magic starts the default drc rule is "fast".
+Selecting menu DRC->DRC Report(?) errors can be seen in the command window, errors will be reported just for selection .
 
 Use 'b' key to see dimension:
-- microns: the size of the selected elemen (error indicated metal width 0x14 > 0.06 curent width)
+- microns: the size of the selected element (error indicated metal width 0x14 > 0.06 current width)
 - lambda :
-- internal: minimum manufaturing grid
+- internal: minimum manufacturing grid
 Grid features can be selected from menu Window. Set grid x.xx , Grid on, Snap-to-grid etc
 
-Exercise 1a- line width: we can use filling the area with the mouse or in comand line ('''box width 0.14um / paint m2''')
+Exercise 1a- line width: we can use filling the area with the mouse or in command line ('''box width 0.14um / paint m2''')
 ![](Day3/3-1.png)
 Exercise 1b - space width: solved by moving the area away with keypad arrows (4<-,6->,8 up, 2 down)
-Exercise 1c - 2x metal spacing: rsolved similar with 1b moving the small component
-Exercise 1d - notch error : usgae of menu Cell->Strech up action is used to widthen the notch or Shift +keypad arraows 
-Strech of element can be don selecting a portion of a plane , pressing a and using comand ```stret e 1.1.6um``` (e - est).
+Exercise 1c - 2x metal spacing: resolved similar with 1b moving the small component
+Exercise 1d - notch error : usage of menu Cell->Stretch up action is used to widen the notch or Shift +keypad arrows 
+Stretch of element can be don selecting a portion of a plane , pressing a and using command ```stret e 1.1.6um``` (e - est).
 ![](Day3/3-2.png)
 
-Exercise 2a via size - solved with strech 
-Exercise 2b multiple via - used in designs with multiple via contacts . ```feedback why``` comand can show the possible via conection . ```feeback clear``` will reset the view.
+Exercise 2a via size - solved with stretch 
+Exercise 2b multiple via - used in designs with multiple via contacts . ```feedback why``` command can show the possible via connection . ```feedback clear``` will reset the view.
 If the area is to small to feet a contact we will get a feedback error.
 ```cif see``` will show the layers used for via contact.
 ![](Day3/3-3.png)
-Exercise 2c - via overlap. metal layer must be generated aroudn the via hole and dimension acording to the rules .
-Exercise 2d - autogenerate via: Using wiring tool hitting the space bar.  Wiring can be generated and presing Shit+ left mouse click and Shift +right mouse click we can jump to high/lower layers. 
-When going to upper layers and the width rule incrieses magis is generating wider traces. With ```cif see comand```  
+Exercise 2c - via overlap. metal layer must be generated around the via hole and dimension according to the rules .
+Exercise 2d - autogenerate via: Using wiring tool hitting the space bar.  Wiring can be generated and pressing Shit+ left mouse click and Shift +right mouse click we can jump to high/lower layers. 
+When going to upper layers and the width rule increases magic is generating wider traces. With ```cif see comand```  
 ![](Day3/3-4.png)
 
 ![](Day3/3-5.png)
-Exercise 3a - Minimum area : encountered mainly when a conection is done between layers , and some areas will be to small for upper layers rules. Solved by strechting the affected area.
-```box size 0.20um 0.20um ``` comand will resize the selection box to needed size. 
-Exercise 3b - Minimum hole : Solved usually by cutting the surounding hole metal. Select area and use  ``` erase "layer name"'' command. 
+Exercise 3a - Minimum area : encountered mainly when a connection is done between layers , and some areas will be to small for upper layers rules. Solved by stretching the affected area.
+```box size 0.20um 0.20um ``` command will resize the selection box to needed size. 
+Exercise 3b - Minimum hole : Solved usually by cutting the surrounding hole metal. Select area and use  ``` erase "layer name"'' command. 
 
 ![](Day3/3-6.png)
-Exercise 4a :  Most well checks are comput intensive and covered just by drc(full) style. 
-For this exercise the wells have no tap wells so we need to insert, paintind an area with ```nsubstratendiff```` material.
-Even if we insert a n-tap well we still se errors becasue the rulles are cheching for electrical connection so we need to draw a contact .
-Exercise 4b :It is similar with some  intermidiat step from 4a. The p-tap needs an contact and then also the interconect area around the contact mst be adjusted. 
-Exercise 4c : Is is a deep n-well structure that is not alow to flow . Is has also some width and spacing (to other n-wells) errors solved by strecthing the area . ```move e 1.2um``` comand is usfull to move selected areas. 
-Nex step is to add n-well area around the deep n-well and to add some ocntacts. But for such structures is recomandaed to generate a guard ring. 
+Exercise 4a :  Most well checks are compute intensive and covered just by drc(full) style. 
+For this exercise the wells have no tap wells so we need to insert, painting an area with ```nsubstratendiff```` material.
+Even if we insert a n-tap well we still se errors because the rules are checking for electrical connection so we need to draw a contact .
+Exercise 4b :It is similar with some  intermediate step from 4a. The p-tap needs an contact and then also the interconnect area around the contact mst be adjusted. 
+Exercise 4c : Is is a deep n-well structure that is not alow to flow . Is has also some width and spacing (to other n-wells) errors solved by stretching the area . ```move e 1.2um``` command is useful to move selected areas. 
+Nex step is to add n-well area around the deep n-well and to add some contacts. But for such structures is recommended to generate a guard ring. 
 To generate such structures magic has an option in the ```Device1``` menu called ```deep n-well region''' that contains all layers. 
 ![](Day3/3-6_1.png)
 
 ![](Day3/3-7.png)
-Exercise 5 : Deived layers.
-In magic if you draw a poly layer over a difussion layer you get a transistor 
-To see/highligh specific layers we can use the ```cif see "layer name"```  from the list generated by ```cif see xxx``` commnad .
+Exercise 5 : Derived layers.
+In magic if you draw a poly layer over a diffusion layer you get a transistor 
+To see/highligh specific layers we can use the ```cif see "layer name"```  from the list generated by ```cif see xxx``` command .
 PSDM, NSDM, LVTN are implant layers .
-Transitor (mvmos) from 5b is an high voltage implant, ``` cif see HVI``` shows that the implant area extends on difussion areas compare with transistor from 5a.
+Transitor (mvmos) from 5b is an high voltage implant, ``` cif see HVI``` shows that the implant area extends on diffusion areas compare with transistor from 5a.
 Rules will require space between low and high voltage diffusion areas.  
-In 5c poly contacts require a scpeaicl type , not an implat but a layer etch, nitride policut (NPC) to ensure a firmer contact between poly and interconect. This is usually generated automaticly .
+In 5c poly contacts require a special type , not an implant but a layer etch, nitride polycut (NPC) to ensure a firmer contact between poly and interconnect. This is usually generated automatically .
 ![](Day3/3-8.png)
 
-Exercise 6: Parameterized deivde
+Exercise 6: Parameterized divide
 When the cells do not show content ```x``` key will expand the content of the selected cells.
 ![](Day3/3-9.png)
 ![](Day3/3-10.png)
-First device is a varactor with some default parameters. The metal layer minimum width can generate an error but once we conect a metal layer it will disapear.
-For 6b we have an ESD FET. Here the gate has a 45 degree angle , it is know as a aceptable design but is not known by magic so this needs to be abstracted. This is very ddangerous because can lead to data that will not e reflected in GDS files so it is recomanded to be used just for read only cells.
+First device is a varactor with some default parameters. The metal layer minimum width can generate an error but once we connect a metal layer it will disappear.
+For 6b we have an ESD FET. Here the gate has a 45 degree angle , it is know as a acceptable design but is not known by magic so this needs to be abstracted. This is very dangerous because can lead to data that will not be reflected in GDS files so it is recommended to be used just for read only cells.
 TO get rid of erros the cell can be copied locally modified eliminating the angles. 
-```cellname filepath "cell mname"``` will get the path to the cell content. 
-For 6c is similar with 6b becasue have in the cell geometries that are prohibited general in the design.
+```cellname filepath "cell name"``` will get the path to the cell content. 
+For 6c is similar with 6b because have in the cell geometries that are prohibited general in the design.
 
 Exercise 7 :Angle Error And Overlap Rule
 ![](Day3/3-11.png)
-Magic is using a grid defined by the process , '''snap internal ``` will snap objects to grid, ```` scalegrid x x ``` can modified the grid if it is alowed by the process.
-Triangles , although they are bad can be generate with a box and ```splitpaint "direction" "layer"``` , direction ex: sw. So some geometries will be generated that will not be alliagned with the grid - solution move a component just a grid unit.
-Overlap error can apear if for eaxple poly will be in a cell and difussion layers in other cell. Solution to paint poly over poly area and to delete a subcell. 
-Contacts are not prohibited to overlap but if they do must overlap exaclty .This is done autoticly by magic so in case a contact cell is defined to have a ciertain spacing for vias and in toper hierachy design intersect with other contact the vias can move and generate an error.
+Magic is using a grid defined by the process , '''snap internal ``` will snap objects to grid, ```` scalegrid x x ``` can modified the grid if it is allowed by the process.
+Triangles , although they are bad can be generate with a box and ```splitpaint "direction" "layer"``` , direction ex: sw. So some geometries will be generated that will not be aligned with the grid - solution move a component just a grid unit.
+Overlap error can appear if for example poly will be in a cell and diffusion layers in other cell. Solution to paint poly over poly area and to delete a subcell. 
+Contacts are not prohibited to overlap but if they do must overlap exactly .This is done automatically by magic so in case a contact cell is defined to have a certain spacing for vias and in toper hierarchy design intersect with other contact the vias can move and generate an error.
 
 
-Exercise 8 : Unimplemened rules
-There situations that the situation is so special that can be solved just with abstractiuon .
-Seal ring is such a case, and can be imported just as abstract layer becasue is not  a part of technology . Fortunatly seal ring is introduced with Seal ring generator 
-![](Day3/3-12.png) need to be reedone
+Exercise 8 : Unimplemented rules
+There situations that the situation is so special that can be solved just with abstraction .
+Seal ring is such a case, and can be imported just as abstract layer because is not  a part of technology . Fortunately seal ring is introduced with Seal ring generator 
+![](Day3/3-12.png) need to be redone
 
 Exercise 9: 
-In this example the design neeeds N-tap conection and minimum distance distance from difusion area to taps must be met - this is the lecth-up rule. 
-We introduce manually a tap cel .
+In this example the design needs N-tap connection and minimum distance from diffusion area to taps must be met - this is the letch-up rule. 
+We introduce manually a tap cell .
 ![](Day3/3-13.png)
 
-Exercise 10: Eletrical rule check
-For electrical rule check the behaviour of the circuit must be know/ understood. For this we need an extractioin  
+Exercise 10: Electrical rule check
+For electrical rule check the behavior of the circuit must be know/ understood. For this we need an extraction  
 ![](Day3/3-14.png)
 Detailed info 
 ![](Day3/3-15.png)
 There are 2 ways to solve the antenna issues :
-- conect the layer to a diode , from higluted metal down to fiddiusion. there are standard diode cels
+- connect the layer to a diode , from highlighted metal down to diffusion. there are standard diode cells
 ![](Day3/3-16.png)
-- chenahign metal layers the right way , for ex. the wire from metal3 moved to temetal 1
+- changing metal layers the right way, for ex. the wire from metal3 moved to the metal 1
 
 Exercise 10:Density rules
-Density checks make sens on a full chip . Metal 1 covers the undedesnity (~5%) and metal 2 over desntisty (~85%) example. Use ```cif cover "layer".
-Density check is done via script ```check_density.py "file.gds". To solve this use ```generate_fill.py "file.gds"```. ANd generates a file name "gile_fill_pattern.gds" that can be merged with original .gds. The final check will run on this final comabined GDS file.
+Density checks make sense on a full chip . Metal 1 covers the underdensity (~5%) and metal 2 over density (~85%) example. Use ```cif cover "layer".
+Density check is done via script ```check_density.py "file.gds". To solve this use ```generate_fill.py "file.gds"```. And generates a file name "gile_fill_pattern.gds" that can be merged with original .gds. The final check will run on this final combined GDS file.
 ![](Day3/3-17.png)
 
 ## Day5 LVS Fundamental
+Basically the LVS is a comparison of a schematic generated netlist vs a layout generated netlist . 
+Usually this will not math from the first time and the designers must figure out what is wrong
+![](Day5/5-1.jpeg)
+The tool used for this topic is "netgen" - [insert link ](http://opencircuitdesign.com/netgen/)
+
+
+Netgen works with several fill types: SPICE, LEF/DEF, Verilog, BLIF. Some of them will be used for simulation and other for functional /behavioral validation.
+Generating of netlists from schematic and layout tools but can derive also from RTL tools used in Verilog.
+![](Day5/5-2.jpg)
+The main goal for complex designs are to maintain the hierarchical structure between schematic and layout which has some more sub cells due to structures that are repeated or do not have representation in the schematic, no electrical function.
+LVS algorithm : LVS tries to look for devices that look the same , they look at the connection between them and check if they are the same. For logic aspects this looks ok but when we introduce the power connection this gets more complicated. The global network connects to every cell and every cel will flag the same error even just on cell is not correctly connected.
+
+LVS netlist is different from the simulation netlist which contains parasitic components and this additional one will generate a mismatch. It is important to give LVS netlists without parasitic.
+The number of resistances extracted can slow down the simulation so seething a relevant threshold will save time.
+For Verilog designs is necessary to have netlist generated without behavioral components/ description.
+The schematic and testbench files should kept separate.
+
+![](Day5/5-3.jpg)
+Netgen works creating a list of devices, a list of nets and generates hashes for each combination. Then creates a second set of hash numbers of the combination between hash number of device and net of the device. Then groups this hashes numbers in partitions. This repeats till the number of partitions is the same with the number of nets and devices. 
+Before netgen runs the core algorithm it tries to match the circuit top devices/subcells.
 
 
 # Acknowledgements
