@@ -341,10 +341,18 @@ Excercise 3:
  Ex7 (l8):
  Isolayers?? 
  Till them it can be defined a merging of the GNDs.
+  ![](Day5/l5-71 .png)
+  
+  Ex8 (l9):
+  
+  l10:
+   Ex9 l11:
+   
   
 # Acknowledgements
 - [R. Timothy Edwards](https://github.com/RTimothyEdwards)
 - [Kunal Gosh](https://github.com/kunalg123)
 - [Kunal Ghosh](https://github.com/kunalg123)
 - [VSD-IAT](https://vsdiat.com/)
+
 
