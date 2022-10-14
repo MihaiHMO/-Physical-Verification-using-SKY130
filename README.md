@@ -306,10 +306,42 @@ Excercise 2:
   Batch  examples:
   -json is suable for scripts because is more machine readable
 
-  
 Excercise 3:
+ -insert spice A
+   ![](Day5/l5-31.png)
+   ![](Day5/l5-32.png)
+   ![](Day5/l5-33.png)
+   ![](Day5/l5-34.png)
+   "-blackbox"
+   ![](Day5/l5-35.png)
+   
+ Excercise 4:
+    Spice changed in cell 3 after change off sky130A_setup.tcl
+    ![](Day5/l5-41.png)
+    
+ Excercise 5:
+ https://github.com/efabless/caravel_user_project_analog
+  Netgen know how to treat the low level devices because of the handling described in the ```setup.tcl file```.
+  ![](Day5/l5-51.png)
+  ![](Day5/l5-52 .png)
+  
+  There are posibilities to compare also subcells .
  
+ Lab 6:   
+ It is an eaxple how magic will flatten the components from layout and will merge some components and will match the number of devices in the schematic.
+ On the layout we need to fix the conection between 2 nets by adding metal resistor in between them.
  
+ Ex6 (L7):
+ For this exercise Open Lane was used to generate the digital layout
+ The error found in this layout is '''device is missing 1 terminal ''' to to decap cell s.
+ ![](Day5/l5-71 .png)
+ The tehnic used in the setup file is to ignor all the fill and tap cells .
+ This part of the code it depends on a envirement variable that can be set before netgen will run.
+ 
+ Ex7 (l8):
+ Isolayers?? 
+ Till them it can be defined a merging of the GNDs.
+  
 # Acknowledgements
 - [R. Timothy Edwards](https://github.com/RTimothyEdwards)
 - [Kunal Gosh](https://github.com/kunalg123)
