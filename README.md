@@ -277,15 +277,39 @@ The schematic and testbench files should kept separate.
 ![](Day5/5-3.jpg)
 Netgen works creating a list of devices, a list of nets and generates hashes for each combination. Then creates a second set of hash numbers of the combination between hash number of device and net of the device. Then groups this hashes numbers in partitions. This repeats till the number of partitions is the same with the number of nets and devices. 
 Before netgen runs the core algorithm it tries to match the circuit top devices/subcells.
-Netgen will check pin cnumbers of a device not pin names. Sometimes there are sels that have pins that are not conected or netgen will create a proxy pin wich is a not conected generated pin.  
-Netgen first generates topologies (not single devices) and will compare them. For this there are porpesties that allows netgen to combine series/parallel , change , permut or ignor paramters.
-Netgen removes 0 value compoenents like voltage sources or resistors.
-"Dummy" devices are ignored are ignored by netgen if all pins are shorten toghether.
-Simmetry devices can be destinguies just by diferent pin assigment or have diferent properties.  
-FOr interpreting the results netgen will have a Terminal (run-time) output (summary) but also some files specied in the comand but if not specified files with default name will be generated: ```comp.out ``` (full report) and ```lvs.log``` (summary) 
-Netgen has also a GUI called byt ```netgen gui``` comand.
+Netgen will check pin numbers of a device not pin names. Sometimes there are sels that have pins that are not connected or netgen will create a proxy pin which is a not connected generated pin.  
+Netgen first generates topologies (not single devices) and will compare them. For this there are properties that allows netgen to combine series/parallel , change , permute or ignore parameters.
+Netgen removes 0 value components like voltage sources or resistors.
+"Dummy" devices are ignored are ignored by netgen if all pins are shorten together.
+Symmetry devices can be distinguish just by different pin assignment or have different properties.  
+For interpreting the results netgen will have a Terminal (run-time) output (summary) but also some files specified in the command but if not specified files with default name will be generated: ```comp.out ``` (full report) and ```lvs.log``` (summary) 
+Netgen has also a GUI called byt ```netgen gui``` command.
+
 ### Labs
 
+Exercise 1: Example how to run netgen , content of the terminal report and comp.out file.
+  ![](Day5/l5-1.png)
+ !!!!!!!!!!!1 Add comp.out!!! 
+ ![](Day5/l5-2.png)
+ 
+Excercise 2:
+ ![](Day5/l5-21.png)
+ For multiple runs of netgen , it must be restarted by exit(usually when the working folder will change)  and start again the app or by '''reinitialize''' command.
+ In this exercise can bee seen that netgen finds no components because it contains a subcircuit which is a definition of a component not an "active" component
+ There are reasons why it good to compare at circuit level :!!!!!!!!!!! fill later!!!!!!!!!! 
+ Possible definition of components from files: '''lvs "netA.spice test" "netB.spice test"
+ Example of changing pins 
+  ![](Day5/l5-22.png)
+  Example of changin port order 
+  ![](Day5/l5-23.png)
+  
+  Batch  examples:
+  -json is suable for scripts because is more machine readable
+
+  
+Excercise 3:
+ 
+ 
 # Acknowledgements
 - [R. Timothy Edwards](https://github.com/RTimothyEdwards)
 - [Kunal Gosh](https://github.com/kunalg123)
