@@ -55,13 +55,13 @@ To create connection:
 
 Lab 6 : DRC/ LVS checks
 We need to extract the .spice file from the layout :
-``` Extract do local ``` - defines so magic will generate the files local 
-``` Extract all ``` - the extraction action 
-``` Ext2spice lvs ``` - setups the netlist generator
-``` Ext2spice ``` - creates the spice netlist
+- ``` Extract do local ``` - defines so magic will generate the files local 
+- ``` Extract all ``` - the extraction action 
+- ``` Ext2spice lvs ``` - setups the netlist generator
+- ``` Ext2spice ``` - creates the spice netlist
 
 To compare the netlist  run ``` netgen```. As arguments layout is the first one (left) and schematic second (right). Second in quotes is the subcircuit that needs to be compared ex: "inverter". 
-``` netget - batch lvs "../mag/inverter.spice inverter" "../xschem/inverter.pice inverter"
+``` netget - batch lvs "../mag/inverter.spice inverter" "../xschem/inverter.pice inverter" ```
 If the circuit is correct then the report will output that will math uniquely.
 
 
