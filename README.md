@@ -1,10 +1,17 @@
 # -Physical-Verification-using-SKY130
 ## Table of content 
-+ .[Day2 Lab](#day2-lab)
-+ .[Day3](#Day3-Design-Rule-Checking)
-+ .[Day5](#Day5)
++.[Day1](#day1)
++.[Day2](#day2)
++.[Day3](#Day3-Design-Rule-Checking)
++.[Day5](#Day5)
 
-## Day2 Lab
+## Day1
+### Fundamentals
+
+### Lab
+
+
+## Day2
 ### Day 2 Lab GDS read, ports, 
 
 Create a work envirement copiing magic into a directory:
@@ -383,8 +390,8 @@ Ex6 (L7):
  In this eaxmple we see that topological we do not have any errors but we have '''property failures=6```  
  First we can change the schematic and see if the properties from the layout will fit the schematic functional simulation. 
  But some of them must be corrected in the layout ec: nfet from the exercise.
- ![](Day5/l5-111 .png)
- ![](Day5/l5-112 .png)
+ ![](Day5/l5-111.png)
+ ![](Day5/l5-112.png)
 
   
 # Acknowledgements
