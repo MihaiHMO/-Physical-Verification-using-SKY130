@@ -20,14 +20,18 @@ For graphic it can run with ```XR``` option (criographics ) or ```OGL``` openGL.
 
 Lab3: Create schematic 
 Insert components with ```Insert``` key. 
+
 ![](Day1/l1-1.jpg)
+
 Here we can see several souces :
 - default xscheme library : contains non PDK specific item like input output pins, power supplies and other test bench components
 - current working directory : for custom subschematic 
 - sky130 PDK library 
 
 Place components ( ```c``` key for copy ), change parameters (right click on component) and connect them with wires (```w``` key). 
+
 ![](Day1/l1-2.png)
+
 To be able to create a layout, ```Simulation->LVS netlist: Top level is a .subckt``` must be selected, from the menu.
 
 Lab4 : creating symbol simulation and extraction
@@ -36,6 +40,7 @@ Create a symbol of the schematic from ```Symbol->Make symbol from schematic```, 
 Create a test bench to simulate electrical behavior of the circuit, to verify the intended performance and parameters.
 For this we need extra components, definition of the simulation type and parameters.
 Generate teh netlist (by presing ```Netlist ``` button)
+
 ![](Day1/l1-3.png)
 
 Lab 5:Import schematic in layout 
@@ -84,9 +89,8 @@ The selected
 ![](Day2/2-1.png)
 
 Changing style , 
+
 ![](Day2/2-2.png)
-
-
 
 Port parameters : name, class, usage can be  used to identify the port parameters.
 This are not available or are different for different styles. This metadata if not contained in the gds file, is captured in oder files like .lef file or .spice.
@@ -95,8 +99,8 @@ For spice data a script named ```readspice``` is used.
 ![](Day2/2-3.png)
 ![](Day2/2-4.png)
 
-
 Abstract views:
+
 ![](Day2/2-5.png)
 
 Layout generated for “test” not cel name sky130…..
@@ -119,26 +123,31 @@ Pointers to directories from PDK
 ### DRC Setup 
 
 Running the following script :```/usr/share/pdk/sky130A/libs.tech/magic/run_standard_drc.py /usr/share/pdk/sky130A/libs.ref/sky130_fd_sc_hd/mag/sky130_fd_sc_hd__and2_1.mag ```
+
 ![](Day2/2-7.png)
 
 Will generate a txt file (sky130_fd_sc_hd__and2_1_drc.txt) and will setup the ```style (drc (full))```.
 Opening the txt file we see that reports errors.
-![](Day2/2-8.png)
-In magic we can explore the drc styles by loading the nand gate . We see that there are different styles and the one that is selected :
 
+![](Day2/2-8.png)
+
+In magic we can explore the drc styles by loading the nand gate . We see that there are different styles and the one that is selected :
 By default magic is not running DRC check on components that are coming from vendors.
+
 ![](Day2/2-9.png)
 
 Running DRC check will highlight the errors.
 After selection of and area and by using drc why command we will get the detailed errors like in the txt file.
 
 If is needed to higlight on layout an error from the comand line use drc find 
+
 ![](Day2/2-10.png)
 
 In the next example we over a n-tap cell over the and gate and the errors on the and gate disappeared because the new cell solved the previous errors 
 ![](Day2/2-11.png)
 
 The errors disappears just in the top layer of the design , if we descend in the cel data we still see the errors .  
+
 ![](Day2/2-12.png)
 
 ### Running LVS
@@ -158,7 +167,8 @@ Create 2 component that will have some difference .
 
 Command flatten can be used to flatten a design 
 ```- nolabels ``` option will be used to eliminate label and compare just geometries.
- ![](Day2/2-13.png)
+
+![](Day2/2-13.png)
 
 ## Day3 Design Rule Checking 
 
@@ -221,6 +231,7 @@ Fill patterns are used to mitigate this . For analog design the patterns can inf
 ### Day3 Lab
 #### Width and spacing rules 
 Clone the exercise folder from ```git clone https://github.com/RTimothyEdwards/vsd_drc_lab.git```
+
 ![](Day3/3-0.png)
 
 Everytime the magic starts the default drc rule is "fast".
@@ -233,7 +244,9 @@ Use 'b' key to see dimension:
 Grid features can be selected from menu Window. Set grid x.xx , Grid on, Snap-to-grid etc
 
 Exercise 1a- line width: we can use filling the area with the mouse or in command line ('''box width 0.14um / paint m2''')
+
 ![](Day3/3-1.png)
+
 Exercise 1b - space width: solved by moving the area away with keypad arrows (4<-,6->,8 up, 2 down)
 Exercise 1c - 2x metal spacing: resolved similar with 1b moving the small component
 Exercise 1d - notch error : usage of menu Cell->Stretch up action is used to widen the notch or Shift +keypad arrows 
@@ -244,18 +257,23 @@ Exercise 2a via size - solved with stretch
 Exercise 2b multiple via - used in designs with multiple via contacts . ```feedback why``` command can show the possible via connection . ```feedback clear``` will reset the view.
 If the area is to small to feet a contact we will get a feedback error.
 ```cif see``` will show the layers used for via contact.
+
 ![](Day3/3-3.png)
+
 Exercise 2c - via overlap. metal layer must be generated around the via hole and dimension according to the rules .
 Exercise 2d - autogenerate via: Using wiring tool hitting the space bar.  Wiring can be generated and pressing Shit+ left mouse click and Shift +right mouse click we can jump to high/lower layers. 
 When going to upper layers and the width rule increases magic is generating wider traces. With ```cif see comand```  
+
 ![](Day3/3-4.png)
 
 ![](Day3/3-5.png)
+
 Exercise 3a - Minimum area : encountered mainly when a connection is done between layers , and some areas will be to small for upper layers rules. Solved by stretching the affected area.
 ```box size 0.20um 0.20um ``` command will resize the selection box to needed size. 
 Exercise 3b - Minimum hole : Solved usually by cutting the surrounding hole metal. Select area and use  ``` erase "layer name"'' command. 
 
 ![](Day3/3-6.png)
+
 Exercise 4a :  Most well checks are compute intensive and covered just by drc(full) style. 
 For this exercise the wells have no tap wells so we need to insert, painting an area with ```nsubstratendiff```` material.
 Even if we insert a n-tap well we still se errors because the rules are checking for electrical connection so we need to draw a contact .
