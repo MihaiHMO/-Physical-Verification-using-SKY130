@@ -1,14 +1,41 @@
 # -Physical-Verification-using-SKY130
 ## Table of content 
-+.[Day1](#day1)
-+.[Day2](#day2)
-+.[Day3](#Day3-Design-Rule-Checking)
-+.[Day5](#Day5)
++ .[Day1](#day1)
++ .[Day2](#day2)
++ .[Day3](#Day3-Design-Rule-Checking)
++ .[Day5](#Day5)
 
 ## Day1
 ### Fundamentals
 
 ### Lab
+Lab 2 : Introduction to xschem and magic
+At ```xscheme``` start it loads the sky130 libraries, the PDK setup. . 
+To enter in a cell contecnt pres ```e ``` key, to return ```ctrl+e```.
+For ```magic``` start we can see sky130 tehnology is loaded and the layers specific to it. Also Device1 and Device2 can be seen -here we can create devices from sky130 PDK.
+For graphic it can run with ```XR``` ocption (criographics ) or ```OGL``` openGl.
+![](Day1/1-0.png)
+
+Lab3: Create schematic 
+Insert components with ```Insert``` key. 
+![](Day1/1-1.png)
+Here we can see several souces :
+- default xscheme library : contains non PDK specific item like input output pins, power supplies and other test bench components
+- curent workind directory : for custom subschetaic 
+- sky130 PDK library 
+
+Place components ( ```c``` key for copy ), change parameters (right click on ocmponent) anc conect them with wires (```w``` key). 
+![](Day1/1-2.png)
+To be abale to create a layout, ```Simulation->LVS netlist:Toplevel is a .subckt``` must be selected, from teh menu.
+
+Lab4 : creating symbol simulation and extraction
+Create a symbol of the schematic from ```Symbol->Make symbol from schematic```, thsi can be used in hierahical designs and test benches.
+
+Create a test bench to simulate electrical behavviuour of the circuit, to verify the intended performance and parameters.
+For this we need extra components, definition of the simulation type and parametes.
+Generate teh netlist (by presing ```Netlist ``` button)
+![](Day1/1-3.png)
+
 
 
 ## Day2
