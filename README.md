@@ -45,7 +45,7 @@ Import spice model from the file menu. Match the parameters with schematic .
 - ```ctrl+p ``` for parameter window
 - type ```what ``` in the console to check the name of the instance.
 
-![](Day1/l1-4.png)
+![](Day1/l1-5.png)
 
 To create connection:
 - create areas over 2 component and paint (select layer and press ```p``` ,
