@@ -16,11 +16,11 @@ At ```xscheme``` start it loads the sky130 libraries, the PDK setup. .
 To enter in a cell content press ```e ``` key, to return ```ctrl+e```.
 For ```magic``` start we can see sky130 technology is loaded and the layers specific to it. Also Device1 and Device2 can be seen -here we can create devices from sky130 PDK.
 For graphic it can run with ```XR``` option (criographics ) or ```OGL``` openGL.
-![](Day1/l1-0.jpg)
+![](Day1/l1-0.png)
 
 Lab3: Create schematic 
 Insert components with ```Insert``` key. 
-![](Day1/l1-1.png)
+![](Day1/l1-1.jpg)
 Here we can see several souces :
 - default xscheme library : contains non PDK specific item like input output pins, power supplies and other test bench components
 - current working directory : for custom subschematic 
