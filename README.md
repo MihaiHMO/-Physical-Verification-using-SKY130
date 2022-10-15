@@ -14,18 +14,18 @@ At ```xscheme``` start it loads the sky130 libraries, the PDK setup. .
 To enter in a cell content press ```e ``` key, to return ```ctrl+e```.
 For ```magic``` start we can see sky130 technology is loaded and the layers specific to it. Also Device1 and Device2 can be seen -here we can create devices from sky130 PDK.
 For graphic it can run with ```XR``` option (criographics ) or ```OGL``` openGL.
-![](Day1/1-0.png)
+![](Day1/l1-0.png)
 
 Lab3: Create schematic 
 Insert components with ```Insert``` key. 
-![](Day1/1-1.png)
+![](Day1/l1-1.png)
 Here we can see several souces :
 - default xscheme library : contains non PDK specific item like input output pins, power supplies and other test bench components
 - current working directory : for custom subschematic 
 - sky130 PDK library 
 
 Place components ( ```c``` key for copy ), change parameters (right click on component) and connect them with wires (```w``` key). 
-![](Day1/1-2.png)
+![](Day1/l1-2.png)
 To be able to create a layout, ```Simulation->LVS netlist: Top level is a .subckt``` must be selected, from the menu.
 
 Lab4 : creating symbol simulation and extraction
@@ -34,7 +34,7 @@ Create a symbol of the schematic from ```Symbol->Make symbol from schematic```, 
 Create a test bench to simulate electrical behavior of the circuit, to verify the intended performance and parameters.
 For this we need extra components, definition of the simulation type and parameters.
 Generate teh netlist (by presing ```Netlist ``` button)
-![](Day1/1-3.png)
+![](Day1/l1-3.png)
 
 Lab 5:Import schematic in layout 
 Import spice model from the file menu. Match the parameters with schematic .
@@ -45,7 +45,7 @@ Import spice model from the file menu. Match the parameters with schematic .
 - ```ctrl+p ``` for parameter window
 - type ```what ``` in the console to check the name of the instance.
 
-![](Day1/1-4.png)
+![](Day1/l1-4.png)
 
 To create connection:
 - create areas over 2 component and paint (select layer and press ```p``` ,
