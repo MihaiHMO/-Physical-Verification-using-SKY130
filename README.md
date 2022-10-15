@@ -1,4 +1,6 @@
 # -Physical-Verification-using-SKY130
+![](Day1/title.jpg)
+
 ## Table of content 
 + .[Day1](#day1)
 + .[Day2](#day2)
@@ -14,7 +16,7 @@ At ```xscheme``` start it loads the sky130 libraries, the PDK setup. .
 To enter in a cell content press ```e ``` key, to return ```ctrl+e```.
 For ```magic``` start we can see sky130 technology is loaded and the layers specific to it. Also Device1 and Device2 can be seen -here we can create devices from sky130 PDK.
 For graphic it can run with ```XR``` option (criographics ) or ```OGL``` openGL.
-![](Day1/l1-0.png)
+![](Day1/l1-0.jpg)
 
 Lab3: Create schematic 
 Insert components with ```Insert``` key. 
