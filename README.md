@@ -10,6 +10,55 @@
 ## Day1
 ### Fundamentals
 
+Skywater 130 proces node:https://github.com/google/skywater-pdk#sky130-process-node
+- Support for internal 1.8V with 5.0V I/Os (operable at 2.5V)
+- 1 level of local interconnect
+- 5 levels of metal
+- Is inductor-capable
+- Has high sheet rho poly resistor
+- Optional MiM capacitors
+- Includes SONOS shrunken cell
+- Supports 10V regulated supply
+- HV extended-drain NMOS and PMOS
+
+Projects on skywater130 https://efabless.com/open_mpw_shuttle_project_mpw_one
+
+PDK -  a bundle of files and documentation that needs to be used by a chip designer in order to use the fab capabilities
+https://skywater-pdk.readthedocs.io/en/main/ - documentation
+https://github.com/google/skywater-pdk - libraries
+https://join.skywater.tools (slock) - community
+
+Open Source  tools that are working with the PDK: http://opencircuitdesign.com/
+Also a wrapper can be found here:  https://github.com/RTimothyEdwards/open_pdks
+![](Day1/c1-1.png)
+Setup to install:
+- Clone the repo: ```git clone github.com/RTimothyEdwards/open_pdks```
+- run ```cd opne_pdk```
+- run ```configure --enable-sky130-pdk```
+- run ```make```
+- run ```sudo make install```
+
+EDA tools:
+- Open lane: https://github.com/efabless/openlane
+- Magic: http://opencircuitdesign.com/magic
+- Klayout:https://www.klayout.de
+- Xschem https://github.com/StefanSchippers/xschem
+- Ngspice https://ngspice.sourceforge.net
+- qflow http://opencircuitdesign.com/qflow
+- IRSIM http://opencircuitdesign.com/irsim
+- xcircuit http://opencircuitdesign.com/xcircuit
+
+Skywater SKY130 Filesystem Structure:
+![](Day1/c1-2.png)
+Libraries
+- Digital standard cells : sky130_fd_sc_hd sky130_fd_sc_hdll,  sky130_fd_sc_hs sky130_fd_sc_ms sky130_fd_sc_ls, sky130_fd_sc_lp sky130_fd_sc_hvl
+- Primitive devices / analog: sky130_fd_pr
+- I/O cells: sky130_fd_io
+- 3rd-party libraries:  sky130_ml_xx_hd, sky130_sram_macros
+
+Project filesystem structure:
+![](Day1/c1-3.png)
+
 ### Lab
 Lab 2 : Introduction to xschem and magic
 At ```xscheme``` start it loads the sky130 libraries, the PDK setup. . 
@@ -70,6 +119,11 @@ We need to extract the .spice file from the layout :
 To compare the netlist  run ``` netgen```. As arguments layout is the first one (left) and schematic second (right). Second in quotes is the subcircuit that needs to be compared ex: "inverter". 
 ``` netget - batch lvs "../mag/inverter.spice inverter" "../xschem/inverter.pice inverter" ```
 If the circuit is correct then the report will output that will math uniquely.
+We can extract also spice version of the layout with capacitance parasitics (``` ext2spice cthresh "value"```) or resisance parasitics (``` ext2spice exthresh "value"```).
+Copy ```.spiceinit``` file were you need to simulate. 
+Here you have a simulation with (``` ext2spice cthresh "value"```).
+
+![](Day1/l1-6.png)
 
 
 ## Day2
