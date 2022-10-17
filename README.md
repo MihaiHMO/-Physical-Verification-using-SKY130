@@ -2,12 +2,13 @@
 ![](Day1/title.jpg)
 # -Physical-Verification-using-SKY130
 ## Table of content 
-+ .[Day1](#day1)
-+ .[Day2](#day2)
-+ .[Day3](#Day3-Design-Rule-Checking)
-+ .[Day5](#Day5)
++ .[Day 1](#day_1)
++ .[Day 2](#day_2)
++ .[Day 3](#Day3-Design-Rule-Checking)
++ .[Day 4](#Day_4)
++ .[Day 5](#Day_5)
 
-## Day1
+## Day 1
 ### Fundamentals
 
 Skywater 130 process node: https://github.com/google/skywater-pdk#sky130-process-node
@@ -151,7 +152,7 @@ Here you have a simulation with (``` ext2spice cthresh "value"```).
 ![](Day1/l1-6.png)
 
 
-## Day2
+## Day 2
 ### Day 2 Lab GDS read, ports, 
 
 Create a work envirement copiing magic into a directory:
@@ -415,7 +416,11 @@ Density checks make sense on a full chip . Metal 1 covers the underdensity (~5%)
 Density check is done via script ```check_density.py "file.gds". To solve this use ```generate_fill.py "file.gds"```. And generates a file name "gile_fill_pattern.gds" that can be merged with original .gds. The final check will run on this final combined GDS file.
 ![](Day3/3-17.png)
 
-## Day5
+## Day 4 
+
+https://github.com/an3ol/PV-Workshop
+
+## Day 5
 ### LVS Fundamental
 Basically the LVS is a comparison of a schematic generated netlist vs a layout generated netlist . 
 Usually this will not math from the first time and the designers must figure out what is wrong
