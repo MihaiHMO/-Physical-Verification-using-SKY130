@@ -30,7 +30,7 @@ https://join.skywater.tools (slock) - community
 
 Open Source  tools that are working with the PDK: http://opencircuitdesign.com/
 Also a wrapper can be found here:  https://github.com/RTimothyEdwards/open_pdks
-![](Day1/c1-1.png)
+![](Day1/c1-1.jpg)
 Setup to install:
 - Clone the repo: ```git clone github.com/RTimothyEdwards/open_pdks```
 - run ```cd opne_pdk```
@@ -49,7 +49,7 @@ EDA tools:
 - xcircuit http://opencircuitdesign.com/xcircuit
 
 Skywater SKY130 Filesystem Structure:
-![](Day1/c1-2.png)
+![](Day1/c1-2.jpg)
 Libraries
 - Digital standard cells : sky130_fd_sc_hd sky130_fd_sc_hdll,  sky130_fd_sc_hs sky130_fd_sc_ms sky130_fd_sc_ls, sky130_fd_sc_lp sky130_fd_sc_hvl
 - Primitive devices / analog: sky130_fd_pr
@@ -57,7 +57,7 @@ Libraries
 - 3rd-party libraries:  sky130_ml_xx_hd, sky130_sram_macros
 
 Project filesystem structure:
-![](Day1/c1-3.png)
+![](Day1/c1-3.jpg)
 
 ### Lab
 Lab 2 : Introduction to xschem and magic
