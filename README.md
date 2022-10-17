@@ -64,6 +64,15 @@ Project filesystem structure:
 
 ![](Day1/c1-3.jpg)
 
+Layers:
+![](Day1/c1-4.jpg)
+
+Special layers: RDL (redistribution layers)  and MiM (Metal insulator Metal for capccitors) 
+![](Day1/c1-5.jpg)
+
+Devices:
+![](Day1/c1-6.jpg)
+
 ### Lab
 Lab 2 : Introduction to xschem and magic
 At ```xscheme``` start it loads the sky130 libraries, the PDK setup. . 
