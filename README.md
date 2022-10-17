@@ -49,7 +49,7 @@ EDA tools:
 - xcircuit http://opencircuitdesign.com/xcircuit
 
 Skywater SKY130 Filesystem Structure:
-![](Day1/c1-21.jpg)
+![](Day1/c1-2.jpg)
 Libraries
 - Digital standard cells : sky130_fd_sc_hd sky130_fd_sc_hdll,  sky130_fd_sc_hs sky130_fd_sc_ms sky130_fd_sc_ls, sky130_fd_sc_lp sky130_fd_sc_hvl
 - Primitive devices / analog: sky130_fd_pr
