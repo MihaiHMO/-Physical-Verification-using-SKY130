@@ -10,7 +10,7 @@
 ## Day1
 ### Fundamentals
 
-Skywater 130 proces node:https://github.com/google/skywater-pdk#sky130-process-node
+Skywater 130 process node: https://github.com/google/skywater-pdk#sky130-process-node
 - Support for internal 1.8V with 5.0V I/Os (operable at 2.5V)
 - 1 level of local interconnect
 - 5 levels of metal
@@ -35,7 +35,7 @@ Also a wrapper can be found here:  https://github.com/RTimothyEdwards/open_pdks
 
 Setup to install:
 - Clone the repo: ```git clone github.com/RTimothyEdwards/open_pdks```
-- run ```cd opne_pdk```
+- run ```cd open_pdk```
 - run ```configure --enable-sky130-pdk```
 - run ```make```
 - run ```sudo make install```
@@ -43,7 +43,7 @@ Setup to install:
 EDA tools:
 - Open lane: https://github.com/efabless/openlane
 - Magic: http://opencircuitdesign.com/magic
-- Klayout:https://www.klayout.de
+- Klayout  https://www.klayout.de
 - Xschem https://github.com/StefanSchippers/xschem
 - Ngspice https://ngspice.sourceforge.net
 - qflow http://opencircuitdesign.com/qflow
@@ -64,14 +64,25 @@ Project filesystem structure:
 
 ![](Day1/c1-3.jpg)
 
-Layers:
+Layers: Metal layers + RDL + MiM are defining the back-end component and the rest (that contain most of the IC components)  are defining the fron-ed component.
+There are also other specific defined layers like "High voltage layers" that can incorporate components that work 
 ![](Day1/c1-4.jpg)
 
-Special layers: RDL (redistribution layers)  and MiM (Metal insulator Metal for capccitors) 
+RDL (redistribution layers)  and MiM (Metal insulator Metal for capacitors) 
 ![](Day1/c1-5.jpg)
 
-Devices:
+Devices example :
 ![](Day1/c1-6.jpg)
+![](Day1/c1-7.jpg)
+
+Backend validation :
+1. xschem - Create a schematic and netlist
+2. ngspice - Simulation validation
+3. magic - Layout, DRC validation, second netlist extraction
+4. netgen - LVS validation
+
+![](Day1/c1-8.jpg)
+
 
 ### Lab
 Lab 2 : Introduction to xschem and magic
