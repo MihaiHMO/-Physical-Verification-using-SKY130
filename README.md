@@ -1,6 +1,6 @@
 
 ![](Day1/title.jpg)
-# -Physical-Verification-using-SKY130
+# Physical Verification using SKY130
 ## Table of content 
 + .[Day 1](#day_1)
 + .[Day 2](#day_2)
