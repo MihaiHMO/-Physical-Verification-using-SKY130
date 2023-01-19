@@ -14,8 +14,8 @@
   + Runing LVS
 + [Day 3- Design Rule Checking](#day3-design-rule-checking)
   + Fundamentals and labs
-+ .[Day 4](#Day-4)
-+ .[Day 5](#Day-5)
++ [Day 4](#day-4)
++ [Day 5- LVS](#day-5--lvs)
 
 ## Day 1 Fundamentals
 
@@ -274,7 +274,7 @@ The DRC scope is to maintain the same failure rate (ppm-parts per million) on al
 Skywater130 process rules: https://antmicro-skywater-pdk-docs.readthedocs.io/en/latest/rules.html  
 Magic technoly files DRC info : http://opencircuitdesign.com/magic/techref/maint2.html#drc
 
-![image](https://user-images.githubusercontent.com/49897923/213425311-a69e407b-0185-49f0-8ec2-92b4d9ccc0f4.png)
+![image](https://user-images.githubusercontent.com/49897923/213459244-e136c5f3-c9d1-4c3f-b9c9-0608ee947120.png)
 
 DRC info in contained also in the `.tech` file,  this can used to adapt/correct the wrong implemented rules.
 ```
@@ -460,134 +460,137 @@ Density check is done via script ```check_density.py `file.gds`. To solve this u
 
 https://github.com/an3ol/PV-Workshop
 
-## Day 5
+## Day 5- LVS
 ### LVS Fundamental
-Basically the LVS is a comparison of a schematic generated netlist vs a layout generated netlist . 
+Basically the LVS is a comparison of a schematic generated netlist vs a layout generated netlist.  
 Usually this will not math from the first time and the designers must figure out what is wrong
 ![](Day5/5-1.jpeg)
-The tool used for this topic is "netgen" - [insert link ](http://opencircuitdesign.com/netgen/)
 
+The tool used for this topic is ["netgen"](http://opencircuitdesign.com/netgen/).
 
 Netgen works with several fill types: SPICE, LEF/DEF, Verilog, BLIF. Some of them will be used for simulation and other for functional /behavioral validation.
-Generating of netlists from schematic and layout tools but can derive also from RTL tools used in Verilog.
+Generating of netlists from schematic and layout tools but can derive also from RTL tools used in Verilog.  
 ![](Day5/5-2.jpg)
-The main goal for complex designs are to maintain the hierarchical structure between schematic and layout which has some more sub cells due to structures that are repeated or do not have representation in the schematic, no electrical function.
-LVS algorithm : LVS tries to look for devices that look the same , they look at the connection between them and check if they are the same. For logic aspects this looks ok but when we introduce the power connection this gets more complicated. The global network connects to every cell and every cel will flag the same error even just on cell is not correctly connected.
 
-LVS netlist is different from the simulation netlist which contains parasitic components and this additional one will generate a mismatch. It is important to give LVS netlists without parasitic.
-The number of resistances extracted can slow down the simulation so seething a relevant threshold will save time.
-For Verilog designs is necessary to have netlist generated without behavioral components/ description.
-The schematic and testbench files should kept separate.
+The main goal for complex designs are to maintain the hierarchical structure between schematic and layout which has some more sub cells due to structures that are repeated or do not have representation in the schematic, no electrical function.  
+LVS algorithm: LVS tries to look for devices that look the same , they look at the connection between them and check if they are the same. For logic aspects this looks ok but when we introduce the power connection this gets more complicated. The global network connects to every cell and every cel will flag the same error even just on cell is not correctly connected.  
 
+LVS netlist is different from the simulation netlist which contains parasitic components and this additional one will generate a mismatch. It is important to give LVS netlists without parasitic.  
+The number of resistances extracted can slow down the simulation so seething a relevant threshold will save time.  
+For Verilog designs is necessary to have netlist generated without behavioral components/ description.  
+The schematic and testbench files should kept separate.  
 ![](Day5/5-3.jpg)
-Netgen works creating a list of devices, a list of nets and generates hashes for each combination. Then creates a second set of hash numbers of the combination between hash number of device and net of the device. Then groups this hashes numbers in partitions. This repeats till the number of partitions is the same with the number of nets and devices. 
-Before netgen runs the core algorithm it tries to match the circuit top devices/subcells.
-Netgen will check pin numbers of a device not pin names. Sometimes there are sels that have pins that are not connected or netgen will create a proxy pin which is a not connected generated pin.  
-Netgen first generates topologies (not single devices) and will compare them. For this there are properties that allows netgen to combine series/parallel , change , permute or ignore parameters.
-Netgen removes 0 value components like voltage sources or resistors.
-"Dummy" devices are ignored are ignored by netgen if all pins are shorten together.
-Symmetry devices can be distinguish just by different pin assignment or have different properties.  
-For interpreting the results netgen will have a Terminal (run-time) output (summary) but also some files specified in the command but if not specified files with default name will be generated: ```comp.out ``` (full report) and ```lvs.log``` (summary) 
-Netgen has also a GUI called byt ```netgen gui``` command.
+
+Netgen works creating a list of devices, a list of nets and generates hashes for each combination. Then creates a second set of hash numbers of the combination between hash number of device and net of the device. Then groups this hashes numbers in partitions. This repeats till the number of partitions is the same with the number of nets and devices.  
+Before netgen runs the core algorithm it tries to match the circuit top devices/subcells.  
+Netgen will check pin numbers of a device or pin names. Sometimes there are cells that have pins that are not connected or netgen will create a proxy pin which is a not connected generated pin.  
+Netgen first generates topologies (no single devices) and will compare them. For this there are properties that allows netgen to combine series/parallel, change, permute or ignore parameters.  
+Netgen removes 0 value components like voltage sources or resistors.  
+"Dummy" devices are ignored are ignored by netgen if all pins are shorten together.  
+Symmetry devices can be distinguish just by different pin assignment or have different properties.   
+For interpreting the results netgen will have a Terminal (run-time) output (summary) but also some files specified in the command but if not specified files with default name will be generated: ```comp.out ``` (full report) and ```lvs.log``` (summary)  
+Netgen has also a GUI called by `netgen gui` command.  
 
 ### Labs
 
-Exercise 1: Example how to run netgen , content of the terminal report and comp.out file.
-  ![](Day5/l5-1.png)
- !!!!!!!!!!!1 Add comp.out!!! 
+Ex 1: Example how to run netgen , content of the terminal report and comp.out file.
+ ![](Day5/l5-1.png)
+ !!!!!!!!!!! Add comp.out!!! 
  ![](Day5/l5-2.png)
  
-Excercise 2:
- ![](Day5/l5-21.png)
- For multiple runs of netgen , it must be restarted by exit(usually when the working folder will change)  and start again the app or by '''reinitialize''' command.
- In this exercise can bee seen that netgen finds no components because it contains a subcircuit which is a definition of a component not an "active" component
- There are reasons why it good to compare at circuit level :!!!!!!!!!!! fill later!!!!!!!!!! 
- Possible definition of components from files: '''lvs "netA.spice test" "netB.spice test"
- Example of changing pins 
-  ![](Day5/l5-22.png)
-  Example of changin port order 
-  ![](Day5/l5-23.png)
+Ex 2:
+![](Day5/l5-21.png)
+For multiple runs of netgen , it must be restarted by exit(usually when the working folder will change)  and start again the app or by `reinitialize` command.  
+In this exercise can bee seen that netgen finds no components because it contains a subcircuit which is a definition of a component not an "active" component.
+There are reasons why it good to compare at circuit level: !!!!!!!!!!! fill later!!!!!!!!!!  
+Possible definition of components from files: `lvs "netA.spice test" "netB.spice test"`.  
+Example of changing pins:
+![](Day5/l5-22.png)
+Example of changing port order:  
+![](Day5/l5-23.png)
   
-Ex6 (L7):
- For this exercise Open Lane was used to generate the digital layout
- We see that some components that are actually in the layout like taps an fill are not found in the schematic spice.
- If we check the verilog and layout we find the tap and fill items - this is because in the lvs setup file it is defined to ignore them in certain cases that are dependent on a variable.
- So this variable must be loaded first - change the run_lvs script to do this.
- The error found in this layout is '''device is missing 1 terminal ''' to to decap cell s.
- ![](Day5/l5-71.png)  Batch  examples:
-  -json is suable for scripts because is more machine readable
+Ex6 (L7):  
+ For this exercise OpenLane was used to generate the digital layout.  
+ We see that some components that are actually in the layout like taps an fill are not found in the schematic spice.  
+ If we check the verilog and layout we find the tap and fill items - this is because in the lvs setup file is defined to ignore them in certain cases that are dependent on a variable.  
+ So, this variable must be loaded first - change the `run_lvs` script to do this.  
+ The error found in this layout is `device is missing 1 terminal ` to decap cell s.  
+ ![](Day5/l5-71.png)  Batch  examples:  
+ -`.json` is suable for scripts because is more machine readable  
 
-Excercise 3:
- -insert spice A
-   ![](Day5/l5-31.png)
-   ![](Day5/l5-32.png)
-   ![](Day5/l5-33.png)
-   ![](Day5/l5-34.png)
-   "-blackbox"
-   ![](Day5/l5-35.png)
+Ex 3:
+-insert spice A
+![](Day5/l5-31.png)
+![](Day5/l5-32.png)
+![](Day5/l5-33.png)
+![](Day5/l5-34.png)
+"-blackbox"
+![](Day5/l5-35.png)
    
- Excercise 4:
-    Spice changed in cell 3 after change off sky130A_setup.tcl
-    ![](Day5/l5-41.png)
+ Ex 4:
+ Spice changed in cell 3 after change off sky130A_setup.tcl
+ ![](Day5/l5-41.png)
     
- Excercise 5:
+ Ex 5:
  https://github.com/efabless/caravel_user_project_analog
-  Netgen know how to treat the low level devices because of the handling described in the ```setup.tcl file```.
-  ![](Day5/l5-51.png)
-  ![](Day5/l5-52.png)
+ Netgen know how to treat the low level devices because of the handling described in the `setup.tcl file`.
+ ![](Day5/l5-51.png)
+ ![](Day5/l5-52.png)
   
-  There are possibilities to compare also subcells .
+ There are possibilities to compare also subcells .
  
- Lab 6:   
- It is an example how magic will flatten the components from layout and will merge some components and will match the number of devices in the schematic.
- On the layout we need to fix the connection between 2 nets by adding metal resistor in between them.
+Lab 6:   
+It is an example how magic will flatten the components from layout and will merge some components and will match the number of devices in the schematic.  
+On the layout we need to fix the connection between 2 nets by adding metal resistor in between them.  
 
 Ex6 (L7):
- For this exercise Open Lane was used to generate the digital layout
- We see that some components that are actually in the layout like taps an fill are not found in the schematic spice.
- If we check the verilog and layout we find the tap and fill items - this is because in the lvs setup file it is defined to ignore them in certain cases that are dependent on a variable.
- So this variable must be loaded first - change the run_lvs script to do this.
- The error found in this layout is '''device is missing 1 terminal ''' to to decap cell s.
- ![](Day5/l5-71.png)
- The technic used in the setup file is to ignore all the fill and tap cells so we can look in the verilog.
- This part of the code it depends on a environment variable that can be set before netgen will run.
+ For this exercise Open Lane was used to generate the digital layout.  
+ We see that some components that are actually in the layout like taps an fill are not found in the schematic spice.  
+ If we check the verilog and layout we find the tap and fill items - this is because in the lvs setup file it is defined to ignore them in certain cases that are dependent on a variable.  
+ So this variable must be loaded first - change the run_lvs script to do this.  
+ The error found in this layout is `device is missing 1 terminal` to to decap cells.  
+ ![](Day5/l5-71.png)  
+ The technic used in the setup file is to ignore all the fill and tap cells so we can look in the verilog.  
+ This part of the code it depends on a environment variable that can be set before netgen will run.  
  
- Ex7 (lab 8):
+ Ex7 (lab 8):  
  Isolayers?? 
- Till them it can be defined a merging of the GNDs.
+ Till them it can be defined a merging of the GNDs.  
  ![](Day5/l5-81.png)
   
  Ex8 (lab 9):
- In this case the cells look ok because they are coming from a vendor library but on the top level there are some mismatches.
-    ![](Day5/l5-91.png)
- This must be solved first because the net errors generated by them are even more.
-    ![](Day5/l5-92.png)
- The error are some mismatch in the decap number, a  missing diode, some extra elements like tap and fill.  
- The extra elements are solved like in exercise 6 modifying the script to load the variable.
- The missing diode is a common example where components are inserted in layout to mitigate so problems and must be inserted later also in the Verilog /schematic (diode  for antena violation) - serach diode in layout ,check name and add an extra with the cell needed connected to the proper nets.
-   ![](Day5/l5-93 .png)       ![](Day5/l5-94 .png)
-  For decap errors seems to have different number of instances connected to power and GND nets because in the layout they are not connected to a power line (vertical green one)
+ In this case the cells look ok because they are coming from a vendor library but on the top level there are some mismatches.   
+    ![](Day5/l5-91.png)  
+ This must be solved first because the net errors generated by them are even more.  
+    ![](Day5/l5-92.png)  
+ The error are some mismatch in the decap number, a  missing diode, some extra elements like tap and fill.   
+ The extra elements are solved like in exercise 6 modifying the script to load the variable.  
+ The missing diode is a common example where components are inserted in layout to mitigate so problems and must be inserted later also in the Verilog /schematic (diode  for antena violation) - serach diode in layout ,check name and add an extra with the cell needed connected to the proper nets.  
+   ![](Day5/l5-93.png)       
+   ![](Day5/l5-94.png)  
+   
+For decap errors seems to have different number of instances connected to power and GND nets because in the layout they are not connected to a power line (vertical green one).  
   ![](Day5/l5-96.png)
-  Via3 added
+Via3 added   
   ![](Day5/l5-97.png)
  
  (lab 10):
- We see a net inconsistency so if we search for the cell (_364_) we see the clk pin that seems to float - connect it to the power net .
-  ![](Day5/l5-102.png)
-  ![](Day5/l5-103.png)
- For cell _376_ seems to have a short circuit between 2 outputs (pin Q and X) - we check and delete the connection between them
+ We see a net inconsistency so if we search for the cell (_364_) we see the clk pin that seems to float - connect it to the power net .  
+  ![](Day5/l5-102.png)  
+  ![](Day5/l5-103.png)  
+ For cell _376_ seems to have a short circuit between 2 outputs (pin Q and X) - we check and delete the connection between them.  
    
- Last pin error on extrim[22] after a search can be seen that the pin is not connected.
+ Last pin error on extrim[22] after a search can be seen that the pin is not connected.  
    ![](Day5/l5-104.png)
-   If we check the Verilog we see that is attached to instance _335_. 
+   If we check the Verilog we see that is attached to instance _335_.  
      ![](Day5/l5-105.png)
-  Connect the pin A1 to the pad from m2 to m3 and across to the pin.
+  Connect the pin A1 to the pad from m2 to m3 and across to the pin.  
      ![](Day5/l5-106.png)
  
- Ex9 (lab 11):
- In this eaxmple we see that topological we do not have any errors but we have '''property failures=6```  
- First we can change the schematic and see if the properties from the layout will fit the schematic functional simulation. 
- But some of them must be corrected in the layout ec: nfet from the exercise.
+ Ex9 (lab 11):  
+ In this eaxmple we see that topological we do not have any errors but we have `property failures=6`  
+ First we can change the schematic and see if the properties from the layout will fit the schematic functional simulation.  
+ But some of them must be corrected in the layout ec: nfet from the exercise.  
  ![](Day5/l5-111.png)
  ![](Day5/l5-112.png)
 
