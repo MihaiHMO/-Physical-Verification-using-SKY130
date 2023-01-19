@@ -2,14 +2,24 @@
 ![](Day1/title.jpg)
 # Physical Verification using SKY130
 ## Table of content 
-+ .[Day 1](#day_1)
-+ .[Day 2](#day_2)
-+ .[Day 3](#Day3-Design-Rule-Checking)
-+ .[Day 4](#Day_4)
-+ .[Day 5](#Day_5)
++ [Day 1- Fundamentals](#day-1-fundamentals)
+  + Open Source tools and PDK 
+  + Skyater 130nm PDK
+  + Xscheme and Magic 
+  + Labs
++ [Day 2- Running LVS labs](#day-2---running-lvs)
+  + Read GDS II files
+  + Export to Spice
+  + DRC setup
+  + Runing LVS
++ [Day 3- Design Rule Checking](#day3-design-rule-checking)
+  + Fundamentals and labs
++ .[Day 4](#Day-4)
++ .[Day 5](#Day-5)
 
-## Day 1
-### Fundamentals
+## Day 1 Fundamentals
+
+### Open source tools and PDK
 
 Skywater 130 process node: https://github.com/google/skywater-pdk#sky130-process-node
 - Support for internal 1.8V with 5.0V I/Os (operable at 2.5V)
@@ -24,13 +34,13 @@ Skywater 130 process node: https://github.com/google/skywater-pdk#sky130-process
 
 Projects on skywater130 https://efabless.com/open_mpw_shuttle_project_mpw_one
 
-PDK -  a bundle of files and documentation that needs to be used by a chip designer in order to use the fab capabilities
-https://skywater-pdk.readthedocs.io/en/main/ - documentation
-https://github.com/google/skywater-pdk - libraries
-https://join.skywater.tools (Slack) - community
+PDK -  a bundle of files and documentation that needs to be used by a chip designer in order to use the fab capabilities:  
+https://skywater-pdk.readthedocs.io/en/main/ - documentation  
+https://github.com/google/skywater-pdk - libraries  
+https://join.skywater.tools (Slack) - community  
 
-Open Source tools that are working with the PDK: http://opencircuitdesign.com/
-A wrapper can be found here:  https://github.com/RTimothyEdwards/open_pdks
+Open Source tools that are working with the PDK: http://opencircuitdesign.com/  
+A wrapper can be found here:  https://github.com/RTimothyEdwards/open_pdks  
 
 ![](Day1/c1-1.jpg)
 
@@ -84,6 +94,8 @@ Backend validation:
 
 ![](Day1/c1-8.jpg)
 
+Extra info: 
+Technologuy files used by magic "cif" type and "GDS II" type, they are complementary used to manage the design information related to layout design.
 
 ### Lab
 Lab 2 : Introduction to xschem and magic  
@@ -149,7 +161,7 @@ Copy `.spiceinit` file were you need to simulate.
 Here you have a simulation with (``` ext2spice cthresh "value"```).  
 
 ![](Day1/l1-6.png)
-## Day 2  
+## Day 2 - Running LVS  
 ### Day 2 Lab GDS read, ports, 
 
 Create a work environment coping magic into a directory:
@@ -157,7 +169,7 @@ Create a work environment coping magic into a directory:
 
 ![](Day2/2-0.png)
 
-Exploring styles: available styles , selected style → Vendor 
+Exploring cif styles: available styles , selected style → Vendor 
 
 Magics has a search database with `.mag` extension ; GDS files do not have such a database so we need to point the file from the PDK, GDS is just reading the top level cells to insert in the layout you ca use the cell manager.  
 
@@ -199,16 +211,22 @@ Pointers to directories from PDK
 
 ### DRC Setup 
 
-Running the following script :```/usr/share/pdk/sky130A/libs.tech/magic/run_standard_drc.py /usr/share/pdk/sky130A/libs.ref/sky130_fd_sc_hd/mag/sky130_fd_sc_hd__and2_1.mag ```
+Running the following script : 
+```
+/usr/share/pdk/sky130A/libs.tech/magic/run_standard_drc.py
+/usr/share/pdk/sky130A/libs.ref/sky130_fd_sc_hd/mag/sky130_fd_sc_hd__and2_1.mag 
+```
 
 ![](Day2/2-7.png)
 
-Will generate a txt file (sky130_fd_sc_hd__and2_1_drc.txt) and will setup the ```style (drc (full))```.
+Will generate a txt file (sky130_fd_sc_hd__and2_1_drc.txt) and will setup the `style (drc (full))`.
 Opening the txt file we see that reports errors.
 
 ![](Day2/2-8.png)
 
-In magic we can explore the drc styles by loading the nand gate . We see that there are different styles and the one that is selected :
+There are different drc "styles":
+  + `fast` - used for backend metal layers and large synthesized designs, magic will not be forced to check lower layers , less compute intensive
+  + `full` - will check verithing and usfull for small layouts and standard cell design
 By default magic is not running DRC check on components that are coming from vendors.
 
 ![](Day2/2-9.png)
@@ -254,6 +272,18 @@ The precision of the equipment, materials used, timings, cleanliness in the fabs
 The DRC scope is to maintain the same failure rate (ppm-parts per million) on all wafers so we can rely on the statistics given by the fab. DRC will keep the manufacturability of the wafer, if not fulfilled most probably the fab will refuse to produce the component.  
 
 Skywater130 process rules: https://antmicro-skywater-pdk-docs.readthedocs.io/en/latest/rules.html  
+Magic technoly files DRC info : http://opencircuitdesign.com/magic/techref/maint2.html#drc
+
+![image](https://user-images.githubusercontent.com/49897923/213425311-a69e407b-0185-49f0-8ec2-92b4d9ccc0f4.png)
+
+DRC info in contained also in the `.tech` file,  this can used to adapt/correct the wrong implemented rules.
+```
+version
+ version 1.0.382-0-g327e268
+ description "SkyWater SKY130: Open Source rules and DRC"
+ requires magic-8.3.306
+end
+```
 
 ### Back-end Metal layer  
 - Minimum width: for metal, for implants, for features size (polysilicon layer) that defines the transistor gate/ length (ex: sky130 poly width >150nm)
@@ -288,7 +318,7 @@ Fixed layout devices - usually has fixed design rules from the vendor in the sta
 - Off-grid - not very common 
 - Angle limitation 
 - Seal ring: outer perimeter of a chip design - is treated like a fixed layout device but will vary when design will be resized 
-- Latch-up rules: due to parasitic bipolar transistor formed between taps, wells and substrate - the rules will generate minim distance between tap connection and any diffusion zone. 
+- Latch-up rules: due to parasitic bipolar transistor formed between taps, wells and substrate - the rules will generate minim distance between tap connection and any diffusion zone. https://teamvlsi.com/2020/05/latch-up-prevention-in-cmos-design.html
 - Antenna rules: long wires can capture charges and can generate high voltages if they are not connected to a return path or load. The high voltage will penetrate components with a certain breakdown voltage, usually the transistor gate. Usually not missed by the designers this can appear during manufacturing. This can be mitigated also with placement of diodes. 
 - Stress rules - related to material delamination by mechanical processes. Critical points are corners, edges usually containing the pad area.
 - Density rules: is necessary to maintain a flat surface on the layers and with higher density of metal connections this is achieved easier.
